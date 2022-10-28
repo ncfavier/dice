@@ -1,18 +1,18 @@
+cabal-version:          3.0
 name:                   dice
 version:                0.1.0.1
 stability:              work-in-progress
 
-cabal-version:          >= 1.6
 build-type:             Simple
 
 author:                 James Cook <mokus@deepbondi.net>
 maintainer:             Naïm Favier <n@monade.li>
-license:                PublicDomain
+license:                Unlicense
 
 category:               Game
 synopsis:               Simplistic D&D style dice-rolling system.
 description:            Simplistic D&D style dice-rolling system.
-                        .
+
                         > $ dice "2d10 + 2 * (d100 / d6)"
                         > (5+2) + 2 * 64 / 2 => 71
 
@@ -25,12 +25,16 @@ source-repository head
   type: git
   location: git://github.com/ncfavier/dice.git
 
-Library
+common common
   hs-source-dirs:       src
-  exposed-modules:      Data.Random.Dice
   build-depends:        base >= 3 && < 5, random >= 1.2, random-fu >= 0.3, parsec, mtl
+  default-language:     Haskell2010
 
-Executable dice
-  hs-source-dirs:       src
+library
+  import:               common
+  exposed-modules:      Data.Random.Dice
+
+executable dice
+  import:               common
   other-modules:        Data.Random.Dice
   main-is:              Dice.hs
